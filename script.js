@@ -1,8 +1,5 @@
 let myLibrary = [];
-let newLibrary = [];
 let id = 0;
-let removeFuncs = [];
-
 
 function Book(id,title,author,pages,read) {
 this.id = id;
@@ -38,8 +35,15 @@ const newPages = document.createElement('td');
 newPages.textContent=bookPages;
 newBook.appendChild(newPages);
 const newRead = document.createElement('td');
-newRead.textContent=bookRead;
+const toggle= document.createElement('button');
+toggle.classList.add('remove');
+if(bookRead == true){
+toggle.classList.add('toggle');
+}
+toggle.textContent = bookRead;
+newRead.appendChild(toggle);
 newBook.appendChild(newRead);
+
 const remButton = document.createElement('td');
 const button = document.createElement('button');
 button.id=id;
@@ -52,6 +56,16 @@ button.addEventListener('click',()=>{
   myLibrary.splice(index,1);
   newBook.remove();
 });
+
+//listen for click and toggle read or not
+toggle.addEventListener('click', () =>{
+  let index = myLibrary.map(book => book.id).indexOf(Number(button.id));
+  myLibrary[index].read = !myLibrary[index].read;
+  if (myLibrary[index].read == true){
+    toggle.classList.add('toggle');
+  } else {toggle.classList.remove('toggle')}
+  toggle.textContent = myLibrary[index].read;
+})
 
 remButton.appendChild(button);
 newBook.appendChild(remButton);
