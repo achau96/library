@@ -1,11 +1,4 @@
 let myLibrary = [];
-// let myLibrary = [{
-//   id :0,
-// title :'Game of Thrones',
-// author:'George R.R. Martin',
-// pages:550,
-// read:true,
-// }];
 let cacheLibrary = localStorage;
 let id = 0;
 let cacheAvailable = 1;
@@ -192,7 +185,7 @@ const loadAllBooks = () => {
 
     const remButton = document.createElement('td');
     const button = document.createElement('button');
-    button.id=book.id;
+    button.id=book.id;//attach id to looped book to button id, they must match
     button.classList.add('remove');
     button.textContent="DEL";
 
@@ -217,14 +210,7 @@ const loadAllBooks = () => {
     newBook.appendChild(remButton);
     library.appendChild(newBook);
   })
-
 }
-
-// if(localStorage.length != 0){
-
-// } else {
-//   console.log("add more books");
-// }
 
 function lsTest(){
   var test = 'test';
@@ -238,7 +224,7 @@ function lsTest(){
 }
 
 if(lsTest() === true && localStorage.length!= 0){
-  id = Number(localStorage.getItem('id')) + 1;
+  id = Number(localStorage.getItem('id')) + 1;//get next ID to update for library
   myLibrary = JSON.parse(localStorage.getItem('books'));
   loadAllBooks();
 }else{

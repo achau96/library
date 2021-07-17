@@ -16,3 +16,4 @@ decided to go for a table look.
 a number by itself). Got too comfortable with being lazy with JS.
 4. Everything is in my addToLibrary Function and it makes me uncomfortable,
 but I don't want to try refactoring in case things break at the moment.
+5. Just ended up caching the whole library, tried seperately at beginning.
