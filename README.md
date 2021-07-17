@@ -6,6 +6,7 @@ Learning Objectives
 3. A lot of CSS. (Very annoying as a beginner)
 More people should complain about CSS, it's not easy.
 4. A lot of DOM Manipulation.
+5. Local Storage - caching.
 
 What Did I struggle with?
 1. Making a modal. (The popup) - Took about 1.5-2 hours to get properly.
