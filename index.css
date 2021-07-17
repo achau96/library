@@ -3,11 +3,12 @@ body,h1{
  background-color: wheat;
 }
 
-.addbook {
+.button {
   margin-bottom: 2vh;
   width:10%;
   padding:10px;
 }
+
 
 .addbook:hover {
   cursor: pointer;

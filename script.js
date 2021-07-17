@@ -70,6 +70,10 @@ toggle.addEventListener('click', () =>{
     toggle.classList.add('toggle');
   } else {toggle.classList.remove('toggle')}
   toggle.textContent = myLibrary[index].read;
+  if(cacheAvailable==1){
+    cacheLibrary.setItem('books',JSON.stringify(myLibrary));
+    cacheLibrary.setItem('id',`${id}`);
+    }
 })
 
 remButton.appendChild(button);
@@ -194,6 +198,10 @@ const loadAllBooks = () => {
       let index = myLibrary.map(book => book.id).indexOf(Number(button.id));
       myLibrary.splice(index,1);
       newBook.remove();
+      if(cacheAvailable==1){
+        cacheLibrary.setItem('books',JSON.stringify(myLibrary));
+        cacheLibrary.setItem('id',`${id}`);
+        }
     });
 
     //listen for click and toggle read or not
@@ -204,6 +212,10 @@ const loadAllBooks = () => {
         toggle.classList.add('toggle');
       } else {toggle.classList.remove('toggle')}
       toggle.textContent = myLibrary[index].read;
+      if(cacheAvailable==1){
+        cacheLibrary.setItem('books',JSON.stringify(myLibrary));
+        cacheLibrary.setItem('id',`${id}`);
+        }
     })
 
     remButton.appendChild(button);
@@ -211,6 +223,14 @@ const loadAllBooks = () => {
     library.appendChild(newBook);
   })
 }
+
+const clearAll = document.querySelector('.clear');
+clearAll.addEventListener('click',()=>{
+  localStorage.clear();
+  myLibrary = [];
+  id = 0;
+  window.location.reload();
+})
 
 function lsTest(){
   var test = 'test';
