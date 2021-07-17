@@ -1,5 +1,14 @@
 let myLibrary = [];
+// let myLibrary = [{
+//   id :0,
+// title :'Game of Thrones',
+// author:'George R.R. Martin',
+// pages:550,
+// read:true,
+// }];
+let cacheLibrary = localStorage;
 let id = 0;
+let cacheAvailable = 1;
 
 function Book(id,title,author,pages,read) {
 this.id = id;
@@ -18,7 +27,6 @@ let bookRead = newForm.elements[3].checked;
 
 //push book to array (backend)
 myLibrary.push(new Book(id,bookTitle,bookAuthor,bookPages,bookRead));
-// let id = myLibrary.map(book => book.title).indexOf(bookTitle);
 
 //Add book to DOM (frontend)
 const newBook = document.createElement('tr');
@@ -55,6 +63,10 @@ button.addEventListener('click',()=>{
   let index = myLibrary.map(book => book.id).indexOf(Number(button.id));
   myLibrary.splice(index,1);
   newBook.remove();
+  if(cacheAvailable==1){
+    cacheLibrary.setItem('books',JSON.stringify(myLibrary));
+    cacheLibrary.setItem('id',`${id}`);
+    }
 });
 
 //listen for click and toggle read or not
@@ -71,6 +83,10 @@ remButton.appendChild(button);
 newBook.appendChild(remButton);
 library.appendChild(newBook);
 
+if(cacheAvailable==1){
+  cacheLibrary.setItem('books',JSON.stringify(myLibrary));
+  cacheLibrary.setItem('id',`${id}`);
+  }
 
 //Reset form and prevent from going to new page
 id++;
@@ -149,4 +165,83 @@ document.onclick = function(e) {
   }
 }
 
+const loadAllBooks = () => {
+  myLibrary.forEach(book => {
+    const newBook = document.createElement('tr');
+    const newID = document.createElement('td');
+    newID.textContent = book.id;
+    newBook.appendChild(newID);
+    const newTitle = document.createElement('td');
+    newTitle.textContent=book.title;
+    newBook.appendChild(newTitle);
+    const newAuthor = document.createElement('td');
+    newAuthor.textContent=book.author;
+    newBook.appendChild(newAuthor);
+    const newPages = document.createElement('td');
+    newPages.textContent=book.pages;
+    newBook.appendChild(newPages);
+    const newRead = document.createElement('td');
+    const toggle= document.createElement('button');
+    toggle.classList.add('remove');
+    if(book.read == true){
+    toggle.classList.add('toggle');
+    }
+    toggle.textContent = book.read;
+    newRead.appendChild(toggle);
+    newBook.appendChild(newRead);
 
+    const remButton = document.createElement('td');
+    const button = document.createElement('button');
+    button.id=book.id;
+    button.classList.add('remove');
+    button.textContent="DEL";
+
+    //Listen for click, remove from DOM and array.
+    button.addEventListener('click',()=>{
+      let index = myLibrary.map(book => book.id).indexOf(Number(button.id));
+      myLibrary.splice(index,1);
+      newBook.remove();
+    });
+
+    //listen for click and toggle read or not
+    toggle.addEventListener('click', () =>{
+      let index = myLibrary.map(book => book.id).indexOf(Number(button.id));
+      myLibrary[index].read = !myLibrary[index].read;
+      if (myLibrary[index].read == true){
+        toggle.classList.add('toggle');
+      } else {toggle.classList.remove('toggle')}
+      toggle.textContent = myLibrary[index].read;
+    })
+
+    remButton.appendChild(button);
+    newBook.appendChild(remButton);
+    library.appendChild(newBook);
+  })
+
+}
+
+// if(localStorage.length != 0){
+
+// } else {
+//   console.log("add more books");
+// }
+
+function lsTest(){
+  var test = 'test';
+  try {
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      return true;
+  } catch(e) {
+      return false;
+  }
+}
+
+if(lsTest() === true && localStorage.length!= 0){
+  id = Number(localStorage.getItem('id')) + 1;
+  myLibrary = JSON.parse(localStorage.getItem('books'));
+  loadAllBooks();
+}else{
+  myLibrary = [];
+  id = 0;
+}
