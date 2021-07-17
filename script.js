@@ -243,11 +243,15 @@ function lsTest(){
   }
 }
 
-if(lsTest() === true && localStorage.length!= 0){
+if(lsTest() === true){
+  if(localStorage.length!= 0){
   id = Number(localStorage.getItem('id')) + 1;//get next ID to update for library
   myLibrary = JSON.parse(localStorage.getItem('books'));
   loadAllBooks();
+  } else {
+    myLibrary = [];
+    id = 0;
+  }
 }else{
-  myLibrary = [];
-  id = 0;
+  cacheAvailable = 0;
 }
