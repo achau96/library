@@ -116,18 +116,21 @@ const title = document.createElement('input');
 title.setAttribute('type','text');
 title.setAttribute('name','title');
 title.setAttribute('placeholder','title');
+title.required = true;
 title.classList.add('formChild');
 
 const author = document.createElement('input');
 author.setAttribute('type','text');
 author.setAttribute('name','author');
 author.setAttribute('placeholder','author');
+author.required = true;
 author.classList.add('formChild');
 
 const pages = document.createElement('input');
 pages.setAttribute('type','number');
 pages.setAttribute('name','pages');
 pages.setAttribute('placeholder','pages');
+pages.required = true;
 pages.classList.add('formChild');
 
 const read = document.createElement('input');
